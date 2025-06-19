@@ -8,23 +8,36 @@ public class BackgroundMoveScript : MonoBehaviour
     [SerializeField] private float spawnX = 0f;
     [SerializeField] private float newPosX = 10f;
     [SerializeField] private bool randomize = false;
-    [SerializeField] private GameObject game;
     
     private float[] level1 = { -1f, 1f };
     private float[] level2 = { -1.5f, 1f };
     private float[] level3 = { -2f, 2f };
     private float[] level;
-    int score;
 
     private bool hasSpawned = false;
+    private GameLogic gameLogic;
+    private float randomY;
+    
+
+    void Start()
+    {
+        if (randomize)
+        {
+            GameObject gameGameObj = GameObject.Find("GameGame");
+            if (gameGameObj != null)
+            {
+                gameLogic = gameGameObj.GetComponent<GameLogic>();
+            }
+        }
+    }
 
     void levelDecider()
     {
-        if (score <= 20)
+        if (gameLogic.score <= 20)
         {
             level = level1;
         }
-        else if (score <= 50)
+        else if (gameLogic.score <= 50)
         {
             level = level2;
         }
@@ -36,7 +49,8 @@ public class BackgroundMoveScript : MonoBehaviour
 
     void addScore()
     {
-        // game.score++;
+        gameLogic.score++;
+        Debug.Log(gameLogic.score);
     }
     // Update is called once per frame
     void Update()
@@ -50,9 +64,12 @@ public class BackgroundMoveScript : MonoBehaviour
         // Spawn new background when passing spawnX
         if (!hasSpawned && transform.position.x <= spawnX)
         {
-            float randomY = (float)Math.Round(UnityEngine.Random.Range(level[0], level[1]), 1);
+            if (randomize)
+            {
+                levelDecider(); addScore();
+                randomY = (float)Math.Round(UnityEngine.Random.Range(level[0], level[1]), 1);
+            }
             float yPos = randomize ? randomY : transform.position.y;
-            addScore();
             Instantiate(gameObject, new Vector3(newPosX, yPos, transform.position.z), Quaternion.identity);
             hasSpawned = true;
         }
