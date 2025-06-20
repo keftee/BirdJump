@@ -50,7 +50,8 @@ public class BackgroundMoveScript : MonoBehaviour
     void addScore()
     {
         gameLogic.score++;
-        Debug.Log(gameLogic.score);
+        gameLogic.changeScoreCard();
+        // Debug.Log(gameLogic.score);
     }
     // Update is called once per frame
     void Update()
