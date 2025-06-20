@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BackgroundMoveScript : MonoBehaviour
 {
-    [SerializeField] private float speed = 2f;
+    [SerializeField] public float speed = 2f;
     [SerializeField] private float deleteX = -10f;
     [SerializeField] private float spawnX = 0f;
     [SerializeField] private float newPosX = 10f;
@@ -17,6 +18,7 @@ public class BackgroundMoveScript : MonoBehaviour
     private bool hasSpawned = false;
     private GameLogic gameLogic;
     private float randomY;
+    public static List<BackgroundMoveScript> instances = new List<BackgroundMoveScript>();
     
 
     void Start()
@@ -72,12 +74,14 @@ public class BackgroundMoveScript : MonoBehaviour
             }
             float yPos = randomize ? randomY : transform.position.y;
             Instantiate(gameObject, new Vector3(newPosX, yPos, transform.position.z), Quaternion.identity);
+            instances.Add(this);
             hasSpawned = true;
         }
 
         // Destroy when off-screen
         if (transform.position.x < deleteX)
         {
+            instances.Remove(this);
             Destroy(gameObject);
         }
     } 
