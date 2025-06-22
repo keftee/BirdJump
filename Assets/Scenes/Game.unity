@@ -165,6 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   scoreCard: {fileID: 1902635954}
+  pausemenu: {fileID: 1825160065}
 --- !u!1 &84895481
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,16 +10,19 @@ public class GameLogic : MonoBehaviour
     [SerializeField] UnityEngine.UI.Image pausemenu;
     BackgroundMoveScript[] movnigObjects;
     private Dictionary<BackgroundMoveScript, float> savedSpeeds = new Dictionary<BackgroundMoveScript, float>();
+
     void Start()
     {
         Application.targetFrameRate = 60;
         score = 0;
+        pausemenu.gameObject.SetActive(false); // Hide pause menu at start
     }
 
     public void changeScoreCard()
     {
         scoreCard.text = score.ToString();
     }
+
     public void pauseMenu()
     {
         movnigObjects = FindObjectsByType<BackgroundMoveScript>(sortMode: FindObjectsSortMode.None);
@@ -29,6 +32,7 @@ public class GameLogic : MonoBehaviour
             savedSpeeds[instance] = instance.speed;
             instance.speed = 0f;
         }
+        pausemenu.gameObject.SetActive(true);
         
     }
 
@@ -37,5 +41,6 @@ public class GameLogic : MonoBehaviour
         foreach (var kvp in savedSpeeds)
             if (kvp.Key != null)
                 kvp.Key.speed = kvp.Value;
+        pausemenu.gameObject.SetActive(false);
     }
 }
