@@ -11,6 +11,8 @@ public class GameLogic : MonoBehaviour
     BackgroundMoveScript[] movnigObjects;
     [SerializeField] GameObject player;
     [SerializeField] private float jumpForce = 2.0f;
+    [SerializeField] private float torque = 0.0f;
+    [SerializeField] private float gravityTorque = -1.0f;
     private Dictionary<BackgroundMoveScript, float> savedSpeeds = new Dictionary<BackgroundMoveScript, float>();
     UnityEngine.Vector3 bottomLimit = new UnityEngine.Vector3(0,-4.5f,-2);
     PolygonCollider2D playerCollider;
@@ -34,7 +36,18 @@ public class GameLogic : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0))
         {
+            // playerRB.freezeRotation = false;
             playerRB.AddForceY(jumpForce, ForceMode2D.Impulse);
+            // playerRB.AddTorque(torque, ForceMode2D.Impulse);
+        }
+        if (!Input.GetMouseButtonDown(0))// && player.transform.rotation.z > -0.5f)
+        {
+            playerRB.AddTorque(gravityTorque * -1, ForceMode2D.Force);
+            // playerRB.AddTorque(gravityTorque*-(1-(player.transform.rotation.z/-0.5f)), ForceMode2D.Force);
+        }
+        if (player.transform.rotation.z < -0.2  f)
+        {
+            playerRB.freezeRotation = true;
         }
         int lavaLayer = LayerMask.NameToLayer("Lava");
         ContactFilter2D contactFilter = new ContactFilter2D();
