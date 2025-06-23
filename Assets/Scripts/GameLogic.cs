@@ -13,10 +13,12 @@ public class GameLogic : MonoBehaviour
     [SerializeField] private float jumpForce = 2.0f;
     private Dictionary<BackgroundMoveScript, float> savedSpeeds = new Dictionary<BackgroundMoveScript, float>();
     UnityEngine.Vector3 bottomLimit = new UnityEngine.Vector3(0,-4.5f,-2);
+    PolygonCollider2D playerCollider;
 
     Rigidbody2D playerRB;
     void Start()
     {
+        playerCollider = player.GetComponent<PolygonCollider2D>();
         playerRB = player.GetComponent<Rigidbody2D>();
         Application.targetFrameRate = 60;
         score = 0;
@@ -34,6 +36,18 @@ public class GameLogic : MonoBehaviour
         {
             playerRB.AddForceY(jumpForce, ForceMode2D.Impulse);
         }
+        int lavaLayer = LayerMask.NameToLayer("Lava");
+        ContactFilter2D contactFilter = new ContactFilter2D();
+        contactFilter.SetLayerMask(1 << lavaLayer);
+        contactFilter.useTriggers = true;
+
+        Collider2D[] results = new Collider2D[5];
+        int hitCount = playerCollider.Overlap(contactFilter, results);
+        if (hitCount > 0)
+        {
+            restartScene();
+        }
+
     }
 
     public void changeScoreCard()

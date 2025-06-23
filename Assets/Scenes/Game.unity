@@ -167,6 +167,7 @@ MonoBehaviour:
   scoreCard: {fileID: 1902635954}
   pausemenu: {fileID: 1825160065}
   player: {fileID: 1530057004}
+  jumpForce: 10
 --- !u!1 &84895481
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,7 +557,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 5
 --- !u!60 &1530057006
 PolygonCollider2D:
   m_ObjectHideFlags: 0
