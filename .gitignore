@@ -20,6 +20,7 @@
 
 # VS Code settings (optional to ignore)
 .vscode/
+Builds/
 
 # OS-generated files
 .DS_Store  # macOS — harmless on Windows, you can keep or remove

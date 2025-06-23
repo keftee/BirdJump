@@ -399,7 +399,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Game
+    - Assets
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -409,16 +409,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Resources/Game
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\kchak\Documents\Unity Projects\BirdJump
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: e6d20000
-    m_LastClickedID: 53990
-    m_ExpandedIDs: 000000000eb10000
+    m_SelectedIDs: 0eb10000
+    m_LastClickedID: 45326
+    m_ExpandedIDs: 00000000e4b00000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -447,7 +447,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000000eb10000
+    m_ExpandedIDs: 00000000e4b00000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -595,7 +595,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: d48dffff08fbffff82ae0000
+      m_ExpandedIDs: 5a92ffff8c93ffff3a96ffff5c96fffff29effff24a0ffffd2a2fffff4a2ffff18aaffff60acffff12b3ffffd4b3ffffeabaffff36cfffffd8cfffff9ad8ffff0ce1ffff08fbffff84ae000096ae0000f8ba000056bd000068bd0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1213,9 +1213,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 223.5, y: 397.5, z: 0}
+    m_Target: {x: 13.622135, y: -1.5653805, z: -1.5977026}
     speed: 2
-    m_Value: {x: 223.5, y: 397.5, z: 0}
+    m_Value: {x: 13.622135, y: -1.5653805, z: -1.5977026}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1265,9 +1265,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 456.02466
+    m_Target: 15.126751
     speed: 2
-    m_Value: 456.02466
+    m_Value: 15.126751
   m_Ortho:
     m_Target: 1
     speed: 2
