@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using System.Numerics;
+using sceneM = UnityEngine.SceneManagement.SceneManager;
 
 public class GameLogic : MonoBehaviour
 {
@@ -55,6 +56,7 @@ public class GameLogic : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !gameover)
         {
             // playerRB.freezeRotation = false;
+            playerRB.linearVelocity = UnityEngine.Vector2.zero;
             playerRB.AddForceY(jumpForce, ForceMode2D.Impulse);
             // playerRB.AddTorque(torque, ForceMode2D.Impulse);
         }
@@ -70,6 +72,7 @@ public class GameLogic : MonoBehaviour
 
     public void pauseMenu()
     {
+        playerRB.constraints = RigidbodyConstraints2D.FreezePositionY;
         movnigObjects = FindObjectsByType<BackgroundMoveScript>(sortMode: FindObjectsSortMode.None);
         savedSpeeds.Clear();
         foreach (BackgroundMoveScript instance in movnigObjects)
@@ -83,6 +86,8 @@ public class GameLogic : MonoBehaviour
 
     public void resumeGame()
     {
+        playerRB.constraints = RigidbodyConstraints2D.None;
+        playerRB.constraints = RigidbodyConstraints2D.FreezePositionX;
         foreach (var kvp in savedSpeeds)
             if (kvp.Key != null)
                 kvp.Key.speed = kvp.Value;
@@ -102,11 +107,11 @@ public class GameLogic : MonoBehaviour
 
     public void restartScene()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+        sceneM.LoadScene(sceneM.GetActiveScene().buildIndex);
     }
 
     public void mainMenu()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Main Menu");
+        sceneM.LoadScene("Main Menu");
     }
 }
