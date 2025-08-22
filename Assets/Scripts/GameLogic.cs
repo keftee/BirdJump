@@ -10,6 +10,7 @@ public class GameLogic : MonoBehaviour
     private bool gameover;
     private int highScore;
     [SerializeField] TMP_Text scoreCard;
+    [SerializeField] TMP_Text HICard;
     [SerializeField] UnityEngine.UI.Image pausemenu;
     [SerializeField] UnityEngine.UI.Image gameovermenu;
     BackgroundMoveScript[] movnigObjects;
@@ -31,6 +32,7 @@ public class GameLogic : MonoBehaviour
         {
             highScore = PlayerPrefs.GetInt("highScore");
         }
+        HICard.text = "HI: " + highScore;
         gameover = false;
         playerCollider = player.GetComponent<PolygonCollider2D>();
         playerRB = player.GetComponent<Rigidbody2D>();
@@ -106,7 +108,6 @@ public class GameLogic : MonoBehaviour
             PlayerPrefs.SetInt("highScore", highScore);
         }
         PlayerPrefs.Save();
-        Debug.Log("saved the value: " + PlayerPrefs.GetInt("highScore"));
         gameover = true;
         movnigObjects = FindObjectsByType<BackgroundMoveScript>(sortMode: FindObjectsSortMode.None);
         foreach (BackgroundMoveScript instance in movnigObjects)
@@ -119,6 +120,7 @@ public class GameLogic : MonoBehaviour
     public void restartScene()
     {
         gameover = false;
+        HICard.text = "HI: " + highScore;
         sceneM.LoadScene(sceneM.GetActiveScene().buildIndex);
     }
 
