@@ -8,14 +8,13 @@ public class GameLogic : MonoBehaviour
 {
     public int score;
     private bool gameover;
+    private int highScore;
     [SerializeField] TMP_Text scoreCard;
     [SerializeField] UnityEngine.UI.Image pausemenu;
     [SerializeField] UnityEngine.UI.Image gameovermenu;
     BackgroundMoveScript[] movnigObjects;
     [SerializeField] GameObject player;
     [SerializeField] private float jumpForce = 2.0f;
-    // [SerializeField] private float torque = 0.0f;
-    // [SerializeField] private float gravityTorque = 0f;
     private Dictionary<BackgroundMoveScript, float> savedSpeeds = new Dictionary<BackgroundMoveScript, float>();
     UnityEngine.Vector3 bottomLimit = new UnityEngine.Vector3(0, -4.5f, -2);
     UnityEngine.Vector3 topLimit = new UnityEngine.Vector3(0, 5.0f, -2);
@@ -24,22 +23,32 @@ public class GameLogic : MonoBehaviour
     Rigidbody2D playerRB;
     void Start()
     {
+        if (!PlayerPrefs.HasKey("highScore"))
+        {
+            PlayerPrefs.SetInt("highScore", 0);
+        }
+        else
+        {
+            highScore = PlayerPrefs.GetInt("highScore");
+        }
         gameover = false;
         playerCollider = player.GetComponent<PolygonCollider2D>();
         playerRB = player.GetComponent<Rigidbody2D>();
         Application.targetFrameRate = 60;
         score = 0;
         pausemenu.gameObject.SetActive(false); // Hide pause menu at start
-        gameovermenu.gameObject.SetActive(false); // Hide pause menu at start
+        gameovermenu.gameObject.SetActive(false); // gameover menu at start
     }
     void Update()
     {
-        if (player.transform.position.y < bottomLimit.y || player.transform.position.y > topLimit.y)
+        // if player goes out of bounds
+        if ((player.transform.position.y < bottomLimit.y || player.transform.position.y > topLimit.y)&&!gameover)
         {
             //game over screen
             gameOver();
         }
 
+        
         // check for collisions
         int lavaLayer = LayerMask.NameToLayer("Lava");
         ContactFilter2D contactFilter = new ContactFilter2D();
@@ -48,22 +57,17 @@ public class GameLogic : MonoBehaviour
 
         Collider2D[] results = new Collider2D[5];
         int hitCount = playerCollider.Overlap(contactFilter, results);
-        if (hitCount > 0)
+        if (hitCount > 0 && !gameover)
         {
             gameOver();
         }
 
         if (Input.GetMouseButtonDown(0) && !gameover)
         {
-            // playerRB.freezeRotation = false;
             playerRB.linearVelocity = UnityEngine.Vector2.zero;
             playerRB.AddForceY(jumpForce, ForceMode2D.Impulse);
-            // playerRB.AddTorque(torque, ForceMode2D.Impulse);
         }
     }
-
-    // private void FixedUpdate() {
-    // }
 
     public void changeScoreCard()
     {
@@ -96,6 +100,13 @@ public class GameLogic : MonoBehaviour
 
     public void gameOver()
     {
+        if (score >= highScore)
+        {
+            highScore = score;
+            PlayerPrefs.SetInt("highScore", highScore);
+        }
+        PlayerPrefs.Save();
+        Debug.Log("saved the value: " + PlayerPrefs.GetInt("highScore"));
         gameover = true;
         movnigObjects = FindObjectsByType<BackgroundMoveScript>(sortMode: FindObjectsSortMode.None);
         foreach (BackgroundMoveScript instance in movnigObjects)
@@ -107,6 +118,7 @@ public class GameLogic : MonoBehaviour
 
     public void restartScene()
     {
+        gameover = false;
         sceneM.LoadScene(sceneM.GetActiveScene().buildIndex);
     }
 

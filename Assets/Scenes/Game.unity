@@ -168,7 +168,7 @@ MonoBehaviour:
   pausemenu: {fileID: 1825160065}
   gameovermenu: {fileID: 876641076}
   player: {fileID: 1530057004}
-  jumpForce: 8
+  jumpForce: 6
 --- !u!1 &84895481
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,7 +888,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 1.5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
